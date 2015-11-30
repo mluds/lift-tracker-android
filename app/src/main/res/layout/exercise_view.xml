@@ -3,14 +3,20 @@
     xmlns:android="http://schemas.android.com/apk/res/android"
     android:orientation="horizontal"
     android:layout_width="match_parent"
-    android:layout_height="48dp" >
+    android:layout_height="wrap_content"
+    android:clickable="true"
+    android:focusable="true"
+    android:background="?android:attr/selectableItemBackground" >
 
     <TextView
-        android:id="@+id/contact_name"
+        android:id="@+id/exercise_name"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
+        android:layout_height="wrap_content"
         android:textSize="16sp"
         android:paddingLeft="16dp"
-        android:paddingTop="16dp" />
+        android:paddingRight="16dp"
+        android:paddingTop="16dp"
+        android:paddingBottom="20dp"
+        android:textColor="@android:color/primary_text_light" />
 
 </LinearLayout>

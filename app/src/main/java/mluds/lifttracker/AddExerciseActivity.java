@@ -3,6 +3,7 @@ package mluds.lifttracker;
 import android.content.ContentValues;
 import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
+import android.support.v4.app.NavUtils;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
@@ -40,8 +41,9 @@ public class AddExerciseActivity extends AppCompatActivity {
                     ContentValues values = new ContentValues();
                     values.put(Exercises.COLUMN_NAME_NAME, name.getText().toString());
                     db.insert(Exercises.TABLE_NAME, null, values);
-                    setResult(RESULT_OK);
-                    finish();
+                    //setResult(RESULT_OK);
+                    //finish();
+                    NavUtils.navigateUpFromSameTask(this);
                 }
                 return true;
             default:
