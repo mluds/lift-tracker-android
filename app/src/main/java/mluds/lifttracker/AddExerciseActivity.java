@@ -1,11 +1,14 @@
 package mluds.lifttracker;
 
+import android.content.ContentValues;
+import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.EditText;
+import mluds.lifttracker.DatabaseContract.Exercises;
 
 public class AddExerciseActivity extends AppCompatActivity {
 
@@ -30,8 +33,13 @@ public class AddExerciseActivity extends AppCompatActivity {
             case R.id.action_submit:
                 EditText name = (EditText) findViewById(R.id.input_name);
                 if (name.getText().length() == 0) {
-
+                    // TODO show error
                 } else {
+                    DatabaseHelper mDbHelper = new DatabaseHelper(getBaseContext());
+                    SQLiteDatabase db = mDbHelper.getWritableDatabase();
+                    ContentValues values = new ContentValues();
+                    values.put(Exercises.COLUMN_NAME_NAME, name.getText().toString());
+                    db.insert(Exercises.TABLE_NAME, null, values);
                     setResult(RESULT_OK);
                     finish();
                 }
