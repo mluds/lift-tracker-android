@@ -8,18 +8,54 @@ import android.view.View;
 
 public class SetsActivity extends AppCompatActivity {
 
+    private String mTitle = null;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+        System.out.println("onCreate");
+
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_sets);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         Bundle extras = getIntent().getExtras();
-        toolbar.setTitle(extras.getString("NAME"));
+
+        if (extras != null) {
+            mTitle = extras.getString("name");
+        }
+        if (savedInstanceState != null) {
+            mTitle = savedInstanceState.getString("name");
+        }
+
+        if (mTitle != null) {
+            setTitle(mTitle);
+        }
         setSupportActionBar(toolbar);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
     }
 
+    @Override
+    protected void onSaveInstanceState(Bundle outState) {
+        System.out.println("onSaveInstanceState");
+        outState.putString("name", mTitle);
+        System.out.println(outState.getString("name"));
+        super.onSaveInstanceState(outState);
+    }
+
+    @Override
+    protected void onRestoreInstanceState(Bundle savedInstanceState) {
+        System.out.println("onRestoreInstanceState");
+        System.out.println(savedInstanceState);
+        super.onRestoreInstanceState(savedInstanceState);
+    }
+
+    @Override
+    protected void onStop() {
+        System.out.println("onStop");
+        super.onStop();
+    }
+
     public void addSet(View view) {
-        startActivity(new Intent(this, AddSetActivity.class));
+        Intent intent = new Intent(this, AddSetActivity.class);
+        startActivity(intent);
     }
 }

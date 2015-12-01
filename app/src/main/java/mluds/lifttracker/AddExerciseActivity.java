@@ -1,6 +1,7 @@
 package mluds.lifttracker;
 
 import android.content.ContentValues;
+import android.content.Intent;
 import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
 import android.support.v4.app.NavUtils;
@@ -32,17 +33,13 @@ public class AddExerciseActivity extends AppCompatActivity {
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
             case R.id.action_submit:
-                EditText name = (EditText) findViewById(R.id.input_name);
-                if (name.getText().length() == 0) {
+                String name = ((EditText) findViewById(R.id.input_name)).getText().toString();
+                if (name.length() == 0) {
                     // TODO show error
                 } else {
-                    DatabaseHelper mDbHelper = new DatabaseHelper(getBaseContext());
-                    SQLiteDatabase db = mDbHelper.getWritableDatabase();
-                    ContentValues values = new ContentValues();
-                    values.put(Exercises.COLUMN_NAME_NAME, name.getText().toString());
-                    db.insert(Exercises.TABLE_NAME, null, values);
-                    //setResult(RESULT_OK);
-                    //finish();
+                    Intent intent = new Intent(this, MainActivity.class);
+                    intent.putExtra("name", name);
+                    setResult(RESULT_OK, intent);
                     NavUtils.navigateUpFromSameTask(this);
                 }
                 return true;
