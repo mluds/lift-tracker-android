@@ -18,10 +18,13 @@ public class MainActivity extends AppCompatActivity {
 
     private DatabaseHelper mDbHelper;
     private RecyclerView mRecyclerView;
-    private RecyclerView.Adapter mAdapter;
     private RecyclerView.LayoutManager mLayoutManager;
 
     final static int ADD_EXERCISE_REQUEST = 0;
+    final static String[] PROJECTION = {
+            DatabaseContract.Exercises._ID,
+            DatabaseContract.Exercises.COLUMN_NAME_NAME
+    };
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -30,30 +33,22 @@ public class MainActivity extends AppCompatActivity {
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
-        // Get database cursor
         mDbHelper = new DatabaseHelper(this);
-        SQLiteDatabase db = mDbHelper.getReadableDatabase();
 
-        String[] projection = {
-                DatabaseContract.Exercises._ID,
-                DatabaseContract.Exercises.COLUMN_NAME_NAME
-        };
-        Cursor cursor = db.query(
-                DatabaseContract.Exercises.TABLE_NAME,
-                projection,
-                null,
-                null,
-                null,
-                null,
-                DatabaseContract.Exercises.COLUMN_NAME_NAME + " DESC"
-        );
 
-        // Set up recycler view
         mRecyclerView = (RecyclerView) findViewById(R.id.exercises_view);
-        mLayoutManager = new LinearLayoutManager(this);
-        mRecyclerView.setLayoutManager(mLayoutManager);
-        mAdapter = new ExercisesAdapter(this, cursor);
-        mRecyclerView.setAdapter(mAdapter);
+        mRecyclerView.setLayoutManager(new LinearLayoutManager(this));
+        refreshDatabase();
+    }
+
+    private void refreshDatabase() {
+        Cursor cursor = mDbHelper.getReadableDatabase().query(
+                DatabaseContract.Exercises.TABLE_NAME,
+                PROJECTION,
+                null, null, null, null,
+                DatabaseContract.Exercises.COLUMN_NAME_NAME + " COLLATE NOCASE"
+        );
+        mRecyclerView.setAdapter(new ExercisesAdapter(this, cursor));
     }
 
     public void addExercise(View view) {
@@ -82,10 +77,14 @@ public class MainActivity extends AppCompatActivity {
         if (requestCode == ADD_EXERCISE_REQUEST) {
             if (resultCode == RESULT_OK) {
                 String name = data.getExtras().getString("name");
-                SQLiteDatabase db = mDbHelper.getWritableDatabase();
                 ContentValues values = new ContentValues();
                 values.put(DatabaseContract.Exercises.COLUMN_NAME_NAME, name);
-                db.insert(DatabaseContract.Exercises.TABLE_NAME, null, values);
+                mDbHelper.getWritableDatabase().insert(
+                        DatabaseContract.Exercises.TABLE_NAME,
+                        null,
+                        values
+                );
+                refreshDatabase();
                 Snackbar.make(
                         findViewById(R.id.exercises_view),
                         "Added " + name,

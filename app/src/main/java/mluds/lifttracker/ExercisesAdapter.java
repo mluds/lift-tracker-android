@@ -46,7 +46,12 @@ public class ExercisesAdapter extends CursorRecyclerAdapter<ExercisesAdapter.Vie
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(mContext, SetsActivity.class);
-                intent.putExtra("id", cursor.getColumnIndexOrThrow(DatabaseContract.Exercises._ID));
+                intent.putExtra(
+                        "id",
+                        cursor.getLong(
+                                cursor.getColumnIndexOrThrow(DatabaseContract.Exercises._ID)
+                        )
+                );
                 intent.putExtra("name", name);
                 mContext.startActivity(intent);
             }
