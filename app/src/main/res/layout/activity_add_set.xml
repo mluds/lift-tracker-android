@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.design.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<android.support.design.widget.CoordinatorLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
@@ -21,9 +22,8 @@
 
     </android.support.design.widget.AppBarLayout>
 
-    <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-        xmlns:app="http://schemas.android.com/apk/res-auto"
-        xmlns:tools="http://schemas.android.com/tools"
+    <LinearLayout
+        android:orientation="vertical"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:paddingBottom="@dimen/activity_vertical_margin"
@@ -34,6 +34,30 @@
         tools:context="mluds.lifttracker.AddSetActivity"
         tools:showIn="@layout/activity_add_set">
 
-    </RelativeLayout>
+        <android.support.design.widget.TextInputLayout
+            android:id="@+id/input_layout_weight"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+            <EditText
+                android:id="@+id/input_weight"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="@string/hint_set_weight"
+                android:inputType="numberDecimal" />
+        </android.support.design.widget.TextInputLayout>
+
+        <android.support.design.widget.TextInputLayout
+            android:id="@+id/input_layout_reps"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+            <EditText
+                android:id="@+id/input_reps"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="@string/hint_set_reps"
+                android:inputType="number" />
+        </android.support.design.widget.TextInputLayout>
+
+    </LinearLayout>
 
 </android.support.design.widget.CoordinatorLayout>
