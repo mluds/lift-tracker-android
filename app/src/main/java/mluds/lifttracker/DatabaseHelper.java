@@ -9,7 +9,7 @@ import mluds.lifttracker.DatabaseContract.SetsExercisesIndex;
 
 public class DatabaseHelper extends SQLiteOpenHelper {
     public static final String NAME = "LiftTracker.db";
-    public static final int VERSION = 2;
+    public static final int VERSION = 1;
 
     public static final String SQL_CREATE_EXERCISES =
             "CREATE TABLE " + Exercises.TABLE_NAME + "(" +
@@ -20,6 +20,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
             "CREATE TABLE " + Sets.TABLE_NAME + "(" +
             Sets._ID + " INTEGER PRIMARY KEY," +
             Sets.COLUMN_NAME_EXERCISE_ID + " INTEGER REFERENCES " + Exercises.TABLE_NAME + "," +
+            Sets.COLUMN_NAME_TIMESTAMP + " INTEGER," +
             Sets.COLUMN_NAME_WEIGHT + " TEXT," +
             Sets.COLUMN_NAME_UNIT + " TEXT," +
             Sets.COLUMN_NAME_REPS + " TEXT)";
@@ -35,13 +36,11 @@ public class DatabaseHelper extends SQLiteOpenHelper {
     @Override
     public void onCreate(SQLiteDatabase db) {
         db.execSQL(SQL_CREATE_EXERCISES);
+        db.execSQL(SQL_CREATE_SETS);
+        db.execSQL(SQL_CREATE_SETS_EXERCISES_INDEX);
     }
 
     @Override
     public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
-        if (oldVersion <= 1) {
-            db.execSQL(SQL_CREATE_SETS);
-            db.execSQL(SQL_CREATE_SETS_EXERCISES_INDEX);
-        }
     }
 }

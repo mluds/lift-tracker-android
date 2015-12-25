@@ -9,6 +9,7 @@ import android.view.View;
 public class SetsActivity extends AppCompatActivity {
 
     private String mTitle = null;
+    final static int ADD_SET_REQUEST = 0;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -45,6 +46,15 @@ public class SetsActivity extends AppCompatActivity {
 
     public void addSet(View view) {
         Intent intent = new Intent(this, AddSetActivity.class);
-        startActivity(intent);
+        startActivityForResult(intent, ADD_SET_REQUEST);
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        if (requestCode == ADD_SET_REQUEST) {
+            if (resultCode == RESULT_OK) {
+                
+            }
+        }
     }
 }

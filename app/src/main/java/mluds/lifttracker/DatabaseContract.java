@@ -13,6 +13,7 @@ public final class DatabaseContract {
     public static abstract class Sets implements BaseColumns {
         public static final String TABLE_NAME = "sets";
         public static final String COLUMN_NAME_EXERCISE_ID = "exercise_id";
+        public static final String COLUMN_NAME_TIMESTAMP = "timestamp";
         public static final String COLUMN_NAME_WEIGHT = "weight";
         public static final String COLUMN_NAME_UNIT = "unit";
         public static final String COLUMN_NAME_REPS = "reps";
