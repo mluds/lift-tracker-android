@@ -21,6 +21,7 @@ public class AddSetActivity extends AppCompatActivity {
     EditText inputReps;
     TextInputLayout inputLayoutWeight;
     TextInputLayout inputLayoutReps;
+    DatabaseHelper mDbHelper;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -34,6 +35,13 @@ public class AddSetActivity extends AppCompatActivity {
         inputReps = (EditText) findViewById(R.id.input_reps);
         inputLayoutWeight = (TextInputLayout) findViewById(R.id.input_layout_weight);
         inputLayoutReps = (TextInputLayout) findViewById(R.id.input_layout_reps);
+
+        mDbHelper = new DatabaseHelper(this);
+        refreshDatabase();
+    }
+
+    private void refreshDatabase() {
+
     }
 
     @Override

@@ -35,7 +35,6 @@ public class MainActivity extends AppCompatActivity {
 
         mDbHelper = new DatabaseHelper(this);
 
-
         mRecyclerView = (RecyclerView) findViewById(R.id.exercises_view);
         mRecyclerView.setLayoutManager(new LinearLayoutManager(this));
         refreshDatabase();
